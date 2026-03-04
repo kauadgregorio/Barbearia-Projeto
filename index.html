@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbearia Vitinho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --gold-dark: #9A7A2E;
+      --black: #0A0A0A;
+      --black-2: #111111;
+      --black-3: #1A1A1A;
+      --black-4: #222222;
+      --white: #F5F0E8;
+      --white-dim: #BDB5A6;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black-2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+   
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 14px 40px;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 10px 24px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--gold);
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10,10,10,0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--gold); }
+
+    
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 40px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 50%),
+        var(--black);
+    }
+
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--gold-dark);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-title .gold { color: var(--gold); }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      padding: 16px 36px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,168,76,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 36px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid rgba(245,240,232,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-decoration {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 380px;
+      height: 380px;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeUp 1s ease 0.8s forwards;
+      opacity: 0;
+    }
+
+    .hero-decoration::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: 50%;
+    }
+
+    .hero-decoration::after {
+      content: '✂';
+      font-size: 6rem;
+      color: rgba(201,168,76,0.15);
+    }
+
+    
+    section { padding: 100px 40px; }
+
+    .section-tag {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .section-line {
+      width: 60px; height: 2px;
+      background: var(--gold);
+      margin-bottom: 48px;
+    }
+
+   
+    #sobre {
+      background: var(--black-2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sobre-visual {
+      position: relative;
+    }
+
+    .sobre-box {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--black-3);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      color: rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sobre-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.05) 0%, transparent 70%);
+    }
+
+    .sobre-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--gold);
+      color: var(--black);
+      padding: 20px 24px;
+      text-align: center;
+    }
+
+    .sobre-badge strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .sobre-badge span {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .sobre-text p {
+      color: var(--white-dim);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .sobre-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .stat span {
+      font-size: 0.8rem;
+      color: var(--white-dim);
+      letter-spacing: 1px;
+    }
+
+    
+    #servicos { background: var(--black); }
+
+    .servicos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .servicos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    .servico-card {
+      background: var(--black-2);
+      padding: 40px 32px;
+      border: 1px solid transparent;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .servico-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .servico-card:hover {
+      background: var(--black-3);
+      border-color: rgba(201,168,76,0.15);
+      transform: translateY(-4px);
+    }
+
+    .servico-card:hover::before { width: 100%; }
+
+    .servico-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .servico-nome {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .servico-desc {
+      color: var(--white-dim);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .servico-preco {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .servico-preco .currency {
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .servico-preco .value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    
+    #agendamento {
+      background: var(--black-2);
+    }
+
+    .agendamento-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .agendamento-inner .section-line {
+      margin: 0 auto 48px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--black-3);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--white);
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s;
+      width: 100%;
+      appearance: none;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: var(--black-3);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      margin-top: 24px;
+    }
+
+    .form-submit .btn-primary {
+      width: 100%;
+      padding: 18px;
+      font-size: 0.9rem;
+    }
+
+    
+    #contato {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contato-info {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .contato-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .contato-item-icon {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+
+    .contato-item-text strong {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .contato-item-text span {
+      color: var(--white-dim);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .horarios {
+      margin-top: 48px;
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 32px;
+    }
+
+    .horarios h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+
+    .horario-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+      font-size: 0.9rem;
+    }
+
+    .horario-row:last-child { border-bottom: none; }
+    .horario-row .dia { color: var(--white-dim); }
+    .horario-row .hora { color: var(--white); font-weight: 500; }
+
+    
+    footer {
+      background: var(--black-2);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .footer-logo span { color: var(--white); }
+
+    footer p {
+      color: var(--white-dim);
+      font-size: 0.85rem;
+    }
+
+    footer p a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 999;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+      font-size: 1.6rem;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    }
+
+    
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links, .nav-btn { display: none; }
+      .hamburger { display: flex; }
+
+      #hero { padding: 120px 24px 60px; }
+      .hero-decoration { display: none; }
+
+      section { padding: 70px 24px; }
+
+      #sobre {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .sobre-box { aspect-ratio: 4/3; }
+
+      #contato {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .form-grid { grid-template-columns: 1fr; }
+
+      .servicos-header { flex-direction: column; align-items: flex-start; }
+
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.8rem; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { text-align: center; }
+      .sobre-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Barbearia <span>Vitinho</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#agendamento">Agendar</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#agendamento" class="nav-btn">Agendar Agora</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#sobre" class="mobile-link">Sobre</a>
+    <a href="#servicos" class="mobile-link">Serviços</a>
+    <a href="#agendamento" class="mobile-link">Agendar</a>
+    <a href="#contato" class="mobile-link">Contato</a>
+  </div>
+
+  
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-content">
+      <span class="hero-tag">✂ Taubaté — SP</span>
+      <h1 class="hero-title">
+        Estilo que<br/>
+        <span class="gold">define</span><br/>
+        quem você é.
+      </h1>
+      <p class="hero-subtitle">
+        Cortes precisos, atendimento personalizado e uma experiência única para o homem moderno.
+      </p>
+      <div class="hero-actions">
+        <a href="#agendamento" class="btn-primary">Agendar Horário</a>
+        <a href="#servicos" class="btn-secondary">Ver Serviços</a>
+      </div>
+    </div>
+    <div class="hero-decoration"></div>
+  </section>
+
+  
+  <section id="sobre">
+    <div class="sobre-visual reveal">
+      <div class="sobre-box">✂</div>
+      <div class="sobre-badge">
+        <strong>100%</strong>
+        <span>Dedicação</span>
+      </div>
+    </div>
+    <div class="sobre-text reveal">
+      <span class="section-tag">Sobre Nós</span>
+      <h2 class="section-title">Uma barbearia feita com <span style="color:var(--gold)">cuidado</span></h2>
+      <div class="section-line"></div>
+      <p>
+        A Barbearia Vitinho nasceu da paixão por fazer cada cliente sair diferente — mais confiante, mais estiloso, mais ele mesmo. Aqui cada corte é tratado como uma obra de arte.
+      </p>
+      <p>
+        Utilizamos produtos de qualidade, técnicas modernas e clássicas, sempre com atenção total ao que você precisa. Porque barbearia boa não é só sobre cabelo — é sobre experiência.
+      </p>
+      <div class="sobre-stats">
+        <div class="stat">
+          <strong>500+</strong>
+          <span>Clientes atendidos</span>
+        </div>
+        <div class="stat">
+          <strong>5★</strong>
+          <span>Avaliação média</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Satisfação</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="servicos">
+    <div class="servicos-header reveal">
+      <div>
+        <span class="section-tag">O que oferecemos</span>
+        <h2 class="section-title">Nossos <span style="color:var(--gold)">Serviços</span></h2>
+        <div class="section-line"></div>
+      </div>
+    </div>
+    <div class="servicos-grid">
+      <div class="servico-card reveal">
+        <span class="servico-icon">✂️</span>
+        <h3 class="servico-nome">Corte Clássico</h3>
+        <p class="servico-desc">Corte tradicional com tesoura ou máquina, finalização com produtos premium.</p>
+        <div class="servico-preco">
+          <span class="currency">R$</span>
+          <span class="value">35</span>
+        </div>
+      </div>
+      <div class="servico-card reveal">
+        <span class="servico-icon">🪒</span>
+        <h3 class="servico-nome">Barba</h3>
+        <p class="servico-desc">Modelagem e acabamento de barba com navalha, toalha quente e balm hidratante.</p>
+        <div class="servico-preco">
+          <span class="currency">R$</span>
+          <span class="value">25</span>
+        </div>
+      </div>
+      <div class="servico-card reveal">
+        <span class="servico-icon">💈</span>
+        <h3 class="servico-nome">Combo Completo</h3>
+        <p class="servico-desc">Corte + barba com atendimento completo. O pacote mais popular da casa.</p>
+        <div class="servico-preco">
+          <span class="currency">R$</span>
+          <span class="value">55</span>
+        </div>
+      </div>
+      <div class="servico-card reveal">
+        <span class="servico-icon">⚡</span>
+        <h3 class="servico-nome">Degradê</h3>
+        <p class="servico-desc">Fade perfeito do zero ao comprimento desejado. Técnica e precisão em cada detalhe.</p>
+        <div class="servico-preco">
+          <span class="currency">R$</span>
+          <span class="value">40</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="agendamento">
+    <div class="agendamento-inner">
+      <span class="section-tag reveal">Reserve seu horário</span>
+      <h2 class="section-title reveal">Agende <span style="color:var(--gold)">Online</span></h2>
+      <div class="section-line reveal"></div>
+      <form id="formAgendamento" onsubmit="enviarAgendamento(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" placeholder="Seu nome" required />
+          </div>
+          <div class="form-group">
+            <label for="telefone">WhatsApp</label>
+            <input type="tel" id="telefone" placeholder="(12) 99999-9999" required />
+          </div>
+          <div class="form-group">
+            <label for="servico">Serviço</label>
+            <select id="servico" required>
+              <option value="" disabled selected>Selecione</option>
+              <option value="Corte Clássico - R$35">Corte Clássico — R$ 35</option>
+              <option value="Barba - R$25">Barba — R$ 25</option>
+              <option value="Combo Completo - R$55">Combo Completo — R$ 55</option>
+              <option value="Degradê - R$40">Degradê — R$ 40</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" required />
+          </div>
+          <div class="form-group full">
+            <label for="horario">Horário preferido</label>
+            <select id="horario" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>09:00</option>
+              <option>09:30</option>
+              <option>10:00</option>
+              <option>10:30</option>
+              <option>11:00</option>
+              <option>11:30</option>
+              <option>13:00</option>
+              <option>13:30</option>
+              <option>14:00</option>
+              <option>14:30</option>
+              <option>15:00</option>
+              <option>15:30</option>
+              <option>16:00</option>
+              <option>16:30</option>
+              <option>17:00</option>
+              <option>17:30</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-primary">Confirmar Agendamento</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="reveal">
+      <span class="section-tag">Fale conosco</span>
+      <h2 class="section-title">Onde nos <span style="color:var(--gold)">encontrar</span></h2>
+      <div class="section-line"></div>
+      <div class="contato-info">
+        <div class="contato-item">
+          <div class="contato-item-icon">📍</div>
+          <div class="contato-item-text">
+            <strong>Endereço</strong>
+            <span>Taubaté — SP<br/>A definir</span>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-item-icon">📱</div>
+          <div class="contato-item-text">
+            <strong>WhatsApp</strong>
+            <span>(12) 99248-4052</span>
+          </div>
+        </div>
+        <div class="contato-item">
+          <div class="contato-item-icon">📸</div>
+          <div class="contato-item-text">
+            <strong>Instagram</strong>
+            <span>@barbeariavitinho</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="horarios">
+        <h3>Horário de Funcionamento</h3>
+        <div class="horario-row">
+          <span class="dia">Segunda — Sexta</span>
+          <span class="hora">09:00 — 19:00</span>
+        </div>
+        <div class="horario-row">
+          <span class="dia">Sábado</span>
+          <span class="hora">09:00 — 17:00</span>
+        </div>
+        <div class="horario-row">
+          <span class="dia">Domingo</span>
+          <span class="hora" style="color:var(--gold-dark)">Fechado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer>
+    <div class="footer-logo">Barbearia <span>Vitinho</span></div>
+    <p>© 2025 Barbearia Vitinho. Desenvolvido por <a href="#">Kauã</a>.</p>
+  </footer>
+
+  
+  <a href="https://wa.me/5512992484052" target="_blank" class="whatsapp-float" title="Fale no WhatsApp">
+    💬
+  </a>
+
+  <script>
+    
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    
+    const dataInput = document.getElementById('data');
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.setAttribute('min', hoje);
+
+    
+    function enviarAgendamento(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const telefone = document.getElementById('telefone').value;
+      const servico = document.getElementById('servico').value;
+      const data = document.getElementById('data').value;
+      const horario = document.getElementById('horario').value;
+
+      const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
+
+      const msg = `Olá! Gostaria de agendar um horário.\n\n` +
+        `👤 Nome: ${nome}\n` +
+        `📱 Telefone: ${telefone}\n` +
+        `✂️ Serviço: ${servico}\n` +
+        `📅 Data: ${dataFormatada}\n` +
+        `🕐 Horário: ${horario}`;
+
+      const url = `https://wa.me/5512992484052?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
