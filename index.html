@@ -518,83 +518,6 @@
       line-height: 1;
     }
 
-    
-    #agendamento {
-      background: var(--black-2);
-    }
-
-    .agendamento-inner {
-      max-width: 680px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .agendamento-inner .section-line {
-      margin: 0 auto 48px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-      text-align: left;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .form-group.full { grid-column: 1 / -1; }
-
-    .form-group label {
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: var(--black-3);
-      border: 1px solid rgba(201,168,76,0.2);
-      color: var(--white);
-      padding: 14px 18px;
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.3s;
-      width: 100%;
-      appearance: none;
-    }
-
-    .form-group select {
-      cursor: pointer;
-    }
-
-    .form-group select option {
-      background: var(--black-3);
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--gold);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .form-submit {
-      margin-top: 24px;
-    }
-
     .form-submit .btn-primary {
       width: 100%;
       padding: 18px;
@@ -792,10 +715,8 @@
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#servicos">Serviços</a></li>
-      <li><a href="#agendamento">Agendar</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
-    <a href="#agendamento" class="nav-btn">Agendar Agora</a>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -805,7 +726,6 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#sobre" class="mobile-link">Sobre</a>
     <a href="#servicos" class="mobile-link">Serviços</a>
-    <a href="#agendamento" class="mobile-link">Agendar</a>
     <a href="#contato" class="mobile-link">Contato</a>
   </div>
 
@@ -824,7 +744,6 @@
         Cortes precisos, atendimento personalizado e uma experiência única para o homem moderno.
       </p>
       <div class="hero-actions">
-        <a href="#agendamento" class="btn-primary">Agendar Horário</a>
         <a href="#servicos" class="btn-secondary">Ver Serviços</a>
       </div>
     </div>
@@ -916,67 +835,6 @@
     </div>
   </section>
 
-  
-  <section id="agendamento">
-    <div class="agendamento-inner">
-      <span class="section-tag reveal">Reserve seu horário</span>
-      <h2 class="section-title reveal">Agende <span style="color:var(--gold)">Online</span></h2>
-      <div class="section-line reveal"></div>
-      <form id="formAgendamento" onsubmit="enviarAgendamento(event)">
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="nome">Nome completo</label>
-            <input type="text" id="nome" placeholder="Seu nome" required />
-          </div>
-          <div class="form-group">
-            <label for="telefone">WhatsApp</label>
-            <input type="tel" id="telefone" placeholder="(12) 99999-9999" required />
-          </div>
-          <div class="form-group">
-            <label for="servico">Serviço</label>
-            <select id="servico" required>
-              <option value="" disabled selected>Selecione</option>
-              <option value="Corte Clássico - R$35">Corte Clássico — R$ 00</option>
-              <option value="Barba - R$25">Barba — R$ 00</option>
-              <option value="Combo Completo - R$55">Combo Completo — R$ 00</option>
-              <option value="Degradê - R$40">Degradê — R$ 00</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="data">Data</label>
-            <input type="date" id="data" required />
-          </div>
-          <div class="form-group full">
-            <label for="horario">Horário preferido</label>
-            <select id="horario" required>
-              <option value="" disabled selected>Selecione</option>
-              <option>09:00</option>
-              <option>09:30</option>
-              <option>10:00</option>
-              <option>10:30</option>
-              <option>11:00</option>
-              <option>11:30</option>
-              <option>13:00</option>
-              <option>13:30</option>
-              <option>14:00</option>
-              <option>14:30</option>
-              <option>15:00</option>
-              <option>15:30</option>
-              <option>16:00</option>
-              <option>16:30</option>
-              <option>17:00</option>
-              <option>17:30</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-submit">
-          <button type="submit" class="btn-primary">Confirmar Agendamento</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- CONTATO -->
   <section id="contato">
     <div class="reveal">
       <span class="section-tag">Fale conosco</span>
@@ -1076,27 +934,6 @@
     const hoje = new Date().toISOString().split('T')[0];
     dataInput.setAttribute('min', hoje);
 
-    
-    function enviarAgendamento(e) {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value;
-      const telefone = document.getElementById('telefone').value;
-      const servico = document.getElementById('servico').value;
-      const data = document.getElementById('data').value;
-      const horario = document.getElementById('horario').value;
-
-      const dataFormatada = new Date(data + 'T00:00:00').toLocaleDateString('pt-BR');
-
-      const msg = `Olá! Gostaria de agendar um horário.\n\n` +
-        `👤 Nome: ${nome}\n` +
-        `📱 Telefone: ${telefone}\n` +
-        `✂️ Serviço: ${servico}\n` +
-        `📅 Data: ${dataFormatada}\n` +
-        `🕐 Horário: ${horario}`;
-
-      const url = `https://wa.me/5512992484052?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-    }
   </script>
 
 </body>
