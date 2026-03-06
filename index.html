@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Barbearia Vitinho</title>
+  <title>SION Barber</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -66,7 +66,14 @@
       letter-spacing: 2px;
       text-decoration: none;
     }
-
+    .logo-nav{
+       height: 90px;
+        width: auto;
+        display: block;
+    }
+    .logo-nav:hover{
+      filter: drop-shadow(0 0 6px rgba(201,168,76,0.6));
+    }
     .nav-logo span {
       color: var(--white);
     }
@@ -715,7 +722,13 @@
       color: var(--gold);
       text-decoration: none;
     }
-
+    .sobre-box img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      filter: contrast(1.1) brightness(0.95);
+    }
     
     .whatsapp-float {
       position: fixed;
@@ -799,7 +812,10 @@
 
   
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">Barbearia <span>Vitinho</span></a>
+    <a href="#hero" class="nav-logo reveal">
+      <img src="img/logosion.png" alt="SION Barber" class="logo-nav">
+    </a>
+    </a>
     <ul class="nav-links">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#servicos">Serviços</a></li>
@@ -832,7 +848,7 @@
         quem você é.
       </h1>
       <p class="hero-subtitle">
-        Cortes precisos, atendimento personalizado e uma experiência única para o homem moderno.
+        Cortes precisos, atendimento personalizado.
       </p>
       <div class="hero-actions">
         <a href="#agendamento" class="btn-primary">Agendar Horário</a>
@@ -847,7 +863,7 @@
   
   <section id="sobre">
     <div class="sobre-visual reveal">
-      <div class="sobre-box">✂</div>
+      <div class="sobre-box"><img src="img/fotocristiano.jpeg" alt=""></div>
       <div class="sobre-badge">
         <strong>100%</strong>
         <span>Dedicação</span>
@@ -863,7 +879,7 @@
       <p>
         Aqui você não encontra só um corte. Encontra um ambiente acolhedor, atendimento honesto e um profissional que leva o que faz a sério. Porque a excelência não é opcional — é um valor.
       </p>
-      <div class="sobre-stats">
+      <!--<div class="sobre-stats">
         <div class="stat">
           <strong>000</strong>
           <span>Clientes atendidos</span>
@@ -876,7 +892,7 @@
           <strong>00%</strong>
           <span>Satisfação</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -893,37 +909,37 @@
       <div class="servico-card reveal">
         <img src="img/elemento1.png" class="servico-icon" />
         <h3 class="servico-nome">Corte Clássico</h3>
-        <p class="servico-desc">Corte tradicional com tesoura ou máquina, finalização com produtos premium.</p>
+        <p class="servico-desc">Corte tradicional com tesoura ou máquina.</p>
         <div class="servico-preco">
           <span class="currency">R$</span>
-          <span class="value">00</span>
+          <span class="value">25</span>
         </div>
       </div>
       <div class="servico-card reveal">
         <img src="img/elemento2.png" class="servico-icon" />
         <h3 class="servico-nome">Barba</h3>
-        <p class="servico-desc">Modelagem e acabamento de barba com navalha, toalha quente e balm hidratante.</p>
+        <p class="servico-desc">Acabamento de barba com navalha.</p>
         <div class="servico-preco">
           <span class="currency">R$</span>
-          <span class="value">00</span>
+          <span class="value">25</span>
         </div>
       </div>
       <div class="servico-card reveal">
         <img src="img/elemento3.png" class="servico-icon" />
         <h3 class="servico-nome">Combo Completo</h3>
-        <p class="servico-desc">Corte + barba com atendimento completo. O pacote mais popular da casa.</p>
+        <p class="servico-desc">Corte + barba com atendimento completo.</p>
         <div class="servico-preco">
           <span class="currency">R$</span>
-          <span class="value">00</span>
+          <span class="value">50</span>
         </div>
       </div>
       <div class="servico-card reveal">
         <img src="img/elemento4.png" class="servico-icon" />
         <h3 class="servico-nome">Degradê</h3>
-        <p class="servico-desc">Fade perfeito do zero ao comprimento desejado. Técnica e precisão em cada detalhe.</p>
+        <p class="servico-desc">Fade do zero ao comprimento desejado.</p>
         <div class="servico-preco">
           <span class="currency">R$</span>
-          <span class="value">00</span>
+          <span class="value">25</span>
         </div>
       </div>
     </div>
@@ -942,21 +958,21 @@
             <input type="text" id="nome" placeholder="Seu nome" required />
           </div>
           <div class="form-group">
-            <label for="telefone">WhatsApp</label>
+            <label for="telefone">Seu número de telefone</label>
             <input type="tel" id="telefone" placeholder="(12) 99999-9999" required />
           </div>
           <div class="form-group">
-            <label for="servico">Serviço</label>
+            <label for="servico">Escolha o serviço de sua preferência</label>
             <select id="servico" required>
               <option value="" disabled selected>Selecione</option>
-              <option value="Corte Clássico - R$00">Corte Clássico — R$ 00</option>
-              <option value="Barba - R$00">Barba — R$ 00</option>
-              <option value="Combo Completo - R$00">Combo Completo — R$ 00</option>
-              <option value="Degradê - R$00">Degradê — R$ 00</option>
+              <option value="Corte Clássico - R$25">Corte Clássico — R$ 25</option>
+              <option value="Barba - R$25">Barba — R$ 25</option>
+              <option value="Combo Completo - R$50">Combo Completo — R$ 50</option>
+              <option value="Degradê - R$25">Degradê — R$ 25</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="data">Data</label>
+            <label for="data">Data de preferência</label>
             <input type="date" id="data" required />
           </div>
           <div class="form-group full">
