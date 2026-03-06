@@ -313,11 +313,15 @@
     }
 
     .hero-decoration::after {
-      content: '✂';
-      font-size: 6rem;
-      color: rgba(201,168,76,0.15);
-    }
-
+      content: '';
+}   .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      opacity: 0.85;
+      filter: brightness(0.8) contrast(1.1);
+}
     
     section { padding: 100px 40px; }
 
@@ -459,6 +463,13 @@
       position: relative;
       overflow: hidden;
       cursor: default;
+    }
+
+    .servico-icon{
+     width: 100px;
+     height: auto;
+    display: block;
+    margin: 0 auto 20px auto;
     }
 
     .servico-card::before {
@@ -712,20 +723,20 @@
       right: 32px;
       z-index: 999;
       width: 56px; height: 56px;
-      background: #25D366;
+      background: #0a0a0a;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      box-shadow: 0 4px 20px rgba(212,175,55,0.4);
       transition: all 0.3s ease;
       font-size: 1.6rem;
     }
 
     .whatsapp-float:hover {
       transform: scale(1.1);
-      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+      box-shadow: 0 8px 30px rgba(212,175,55,0.4);
     }
 
     
@@ -828,7 +839,9 @@
         <a href="#servicos" class="btn-secondary">Ver Serviços</a>
       </div>
     </div>
-    <div class="hero-decoration"></div>
+    <div class="hero-decoration">
+      <img src="img/fotovitor.png" alt="Barbearia Vitinho" class="hero-img" />
+</div>
   </section>
 
   
@@ -1033,7 +1046,7 @@
 
   
   <a href="https://wa.me/5512992484052" target="_blank" class="whatsapp-float" title="Fale no WhatsApp">
-    💬
+    <img src="img/whatsappdourado.png" alt="WhatsApp" style="width:40px;height:40px;"
   </a>
 
   <script>
